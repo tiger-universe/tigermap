@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    <script>
+        var map = L.map('map').setView([0, 0], 2);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var tigerIcon = L.icon({
+            iconUrl: 'https://cdn.shopify.com/s/files/1/0567/3284/4209/files/tiger-icon.png',
+            iconSize: [64, 64], // Adjust the size of the icon as needed
+            iconAnchor: [32, 32], // Adjust the anchor point of the icon as needed
+        });
+
+        var countries = [
+            { country: 'India', coordinates: [20.5937, 78.9629], population: 3167 },
+            { country: 'Russia', coordinates: [61.5240, 105.3188], population: 433 },
+            { country: 'Indonesia', coordinates: [-0.7893, 113.9213], population: 371 },
+            { country: 'Bangladesh', coordinates: [23.6850, 90.3563], population: '300–500' },
+            { country: 'Nepal', coordinates: [28.3949, 84.1240], population: 355 },
+            { country: 'Thailand', coordinates: [15.8700, 100.9925], population: 189 },
+            { country: 'Bhutan', coordinates: [27.5142, 90.4336], population: '89–124' },
+            { country: 'Malaysia', coordinates: [4.2105, 101.9758], population: '80–120' },
+            { country: 'China', coordinates: [35.8617, 104.1954], population: 55 },
+            { country: 'Myanmar', coordinates: [21.9162, 95.9560], population: 22 },
+            { country: 'Laos', coordinates: [19.8563, 102.4955], population: 14 },
+            { country: 'Vietnam', coordinates: [14.0583, 108.2772], population: 5 },
+            { country: 'Cambodia', coordinates: [12.5657, 104.9910], population: 0 }
+        ];
+
+        countries.forEach(function(country) {
+            var marker = L.marker(country.coordinates, { icon: tigerIcon }).addTo(map);
+            var population = country.population.toString().replace('–', '-');
+            marker.bindPopup(`<b>${country.country}</b><br>Population: ${population}`);
+        });
+    </script>
+</body
